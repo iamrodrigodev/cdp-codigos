@@ -24,8 +24,8 @@ if [ ! -f "lista_nodos" ]; then
     exit 1
 fi
 
-echo "✓ Hostfile encontrado:"
-cat hostfile
+echo "✓ Lista de nodos encontrada:"
+cat lista_nodos
 echo ""
 
 # Verificar que avg.c está compilado
