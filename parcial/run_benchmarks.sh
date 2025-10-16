@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Forzar configuración regional para usar punto decimal
+export LC_NUMERIC=C
+export LC_ALL=C
+
 # Script para medir tiempos de comunicación y procesamiento con MPI
 # Ejecutar en el nodo principal (server)
 # Configuración: 2 nodos (server + worker1)

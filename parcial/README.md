@@ -186,10 +186,43 @@ chmod +x run_benchmarks.sh
 sudo apt-get install bc
 ```
 
+### Problemas de formato decimal (coma vs punto)
+Si ves errores como:
+```
+printf: .256711: invalid number
+```
+
+Esto ocurre cuando tu sistema usa coma (,) como separador decimal (configuración española). El script ya incluye `export LC_NUMERIC=C` al inicio para forzar punto decimal.
+
+Si el problema persiste, ejecuta manualmente:
+```bash
+export LC_ALL=C
+./run_benchmarks.sh
+```
+
+### Programa se traba en pruebas distribuidas
+Si el benchmark se congela en "Prueba: 2 máquinas, 8 procesos":
+
+1. **Ejecutable no está en nodos remotos**: Copia manualmente el ejecutable
+   ```bash
+   scp avg usuario@worker1:$(pwd)/
+   ```
+
+2. **Firewall bloqueando puertos MPI**: Desactiva temporalmente el firewall
+   ```bash
+   sudo ufw disable
+   ```
+
+3. **Ruta de trabajo diferente**: Asegúrate de ejecutar desde el mismo directorio en todos los nodos
+   ```bash
+   ssh worker1 "cd $(pwd) && ls avg"
+   ```
+
 ### Problemas con múltiples nodos
 1. Asegurar que el código está compilado en todos los nodos
 2. Verificar que las rutas de archivos son consistentes
 3. Comprobar que MPI está instalado en todos los nodos
+4. El ejecutable `avg` debe existir en la misma ruta en todos los nodos
 
 ## Ejemplo de salida
 
