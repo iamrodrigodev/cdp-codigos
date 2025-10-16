@@ -10,21 +10,36 @@ chmod +x instalar.sh
 
 ### Opción 2: Manual (si falla el script)
 ```bash
-# 1. Instalar pip3
+# 1. Instalar dependencias del sistema
 sudo apt update
-sudo apt install -y python3-pip
+sudo apt install -y python3-pip python3-venv
 
-# 2. Instalar librerías Python
-pip3 install plotly numpy pandas --user
+# 2. Crear y activar entorno virtual
+python3 -m venv venv
+source venv/bin/activate  # En Linux/Mac
+# venv\Scripts\activate   # En Windows
 
-# 3. Dar permisos
+# 3. Instalar librerías Python en el entorno virtual
+pip install plotly numpy pandas
+
+# 4. Dar permisos de ejecución
 chmod +x medir_tiempos.sh
 chmod +x generar_graficos.py
+```
+
+**Nota:** Recuerda activar el entorno virtual cada vez que vayas a ejecutar los scripts:
+```bash
+source venv/bin/activate
 ```
 
 ## 📊 EJECUTAR ANÁLISIS
 
 ```bash
+# Asegúrate de tener el entorno virtual activado
+source venv/bin/activate  # En Linux/Mac
+# venv\Scripts\activate   # En Windows
+
+# Ejecutar el análisis
 ./medir_tiempos.sh
 ```
 
@@ -153,9 +168,11 @@ ssh-copy-id usuario@ip_otra_vm
 
 ## ✅ CHECKLIST
 
-- [ ] MPI instalado
-- [ ] Python3 y pip3 instalados
-- [ ] Plotly instalado
+- [ ] MPI instalado (`openmpi-bin`)
+- [ ] Python3, pip3 y python3-venv instalados
+- [ ] Entorno virtual creado (`python3 -m venv venv`)
+- [ ] Entorno virtual activado (`source venv/bin/activate`)
+- [ ] Librerías Python instaladas (plotly, numpy, pandas)
 - [ ] Código compilado
 - [ ] Permisos de ejecución dados
 - [ ] Ejecutar `./medir_tiempos.sh`
