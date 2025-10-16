@@ -232,7 +232,17 @@ Si el benchmark se congela en "Prueba: 2 máquinas, 8 procesos":
 3. Comprobar que MPI está instalado en todos los nodos
 4. El ejecutable `avg` debe existir en la misma ruta en todos los nodos
 
-## Ejemplo de salida
+## Resultados del Benchmark
+
+### Archivo de salida
+
+Cuando ejecutas el benchmark, se genera un archivo con formato: `resultados_benchmark_YYYYMMDD_HHMMSS.txt`
+
+Por ejemplo: `resultados_benchmark_20251016_174750.txt`
+
+Este archivo contiene toda la información de la ejecución del benchmark.
+
+### Ejemplo de salida e interpretación
 
 ```
 ==========================================
@@ -243,23 +253,123 @@ Benchmark MPI - Cálculo de Promedios
 >>> Compilación exitosa
 
 >>> Configuración del benchmark:
-    - Iteraciones por prueba: 10
+    - Iteraciones por prueba: 5
     - Tamaños de entrada: 1000 10000 100000 1000000
     - Nodos: 2 (server + worker1)
+    - Guardando salida en: resultados_benchmark_20251016_174750.txt
 
 ==========================================
 ESCENARIO 1: Una sola máquina (local)
 ==========================================
 
+----------------------------------------
 Prueba: 1 máquina, 1 proceso
-Procesos: 1 | Elementos/proceso: 10000
-  Ejecución 1/10... 0.001234s
-  ...
+Procesos: 1 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.002345s
+  Ejecución 2/5... 0.002301s
+  Ejecución 3/5... 0.002389s
+  Ejecución 4/5... 0.002298s
+  Ejecución 5/5... 0.002312s
+
   RESULTADOS:
-    Tiempo promedio: 0.001250s
-    Desviación estándar: 0.000015s
-    Tiempo mínimo: 0.001234s
-    Tiempo máximo: 0.001289s
+    Tiempo promedio: 0.002329s
+    Desviación estándar: 0.000035s
+    Tiempo mínimo: 0.002298s
+    Tiempo máximo: 0.002389s
+
+----------------------------------------
+Prueba: 1 máquina, 2 procesos
+Procesos: 2 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.003156s
+  Ejecución 2/5... 0.003201s
+  ...
+
+==========================================
+ESCENARIO 2: Múltiples máquinas (2 nodos)
+==========================================
+
+----------------------------------------
+Prueba: 2 máquinas, 2 procesos (1 por nodo)
+Procesos: 2 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.256711s
+  Ejecución 2/5... 0.244382s
+  ...
+
+==========================================
+ANÁLISIS COMPARATIVO DE RESULTADOS
+==========================================
+
+==========================================
+TAMAÑO: 1000000 elementos por proceso
+==========================================
+
+--- ESCALABILIDAD LOCAL ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+1 proceso                      0.260000      1.000     100.00%
+2 procesos                     0.265000      0.981      49.05%
+4 procesos                     0.295000      0.881      22.03%
+
+--- ESCALABILIDAD DISTRIBUIDA (2 nodos) ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+2 proc (1 por nodo)            1.528000      0.170       8.50%
+4 proc (2 por nodo)            1.832000      0.142       3.55%
+8 proc (4 por nodo)            2.450000      0.106       1.33%
+
+--- OVERHEAD DE COMUNICACIÓN (LOCAL vs DISTRIBUIDO) ---
+Procesos    T_Local(s)  T_Distrib(s)  Overhead(s)  Overhead(%)
+----------------------------------------------------------------
+2            0.265000      1.528000      1.263000      476.60%
+4            0.295000      1.832000      1.537000      521.02%
+```
+
+### Interpretación de resultados
+
+#### 1. Tiempos de ejecución
+- **Tiempo promedio**: Media aritmética de las 5 ejecuciones
+- **Desviación estándar**: Indica la variabilidad de los tiempos (valores bajos = resultados consistentes)
+- **Min/Max**: Límites inferior y superior de los tiempos observados
+
+#### 2. Speedup
+```
+Speedup = Tiempo(1 proceso) / Tiempo(N procesos)
+```
+- **Ideal**: Speedup = N (escalamiento lineal perfecto)
+- **Ejemplo**: Con 2 procesos, Speedup ideal = 2.0
+- **Si Speedup < 1**: El paralelismo está ralentizando la ejecución
+
+#### 3. Eficiencia
+```
+Eficiencia = (Speedup / N procesos) × 100%
+```
+- **Ideal**: 100% (uso perfecto de recursos)
+- **> 50%**: Paralelización efectiva
+- **< 50%**: Overhead de comunicación demasiado alto
+
+#### 4. Overhead de comunicación
+```
+Overhead = Tiempo_Distribuido - Tiempo_Local
+```
+- **Positivo grande**: La red añade mucha latencia
+- **Ejemplo**: 476.60% significa que la versión distribuida es 4.76x más lenta debido a la comunicación de red
+
+### Conclusiones del ejemplo
+
+Para este benchmark con datasets pequeños a medianos:
+
+1. **No hay beneficio de paralelización local**: Con más procesos, el tiempo aumenta (Speedup < 1)
+2. **La distribución de red es muy costosa**: Overhead de 400-500%
+3. **Problema computacionalmente simple**: El overhead de MPI supera el beneficio del paralelismo
+4. **Recomendación**: Para este tipo de cálculo, usar 1 proceso es más eficiente
+
+Para obtener beneficios de MPI se necesitarían:
+- Datasets mucho más grandes (ej. 100+ millones de elementos)
+- Operaciones más complejas computacionalmente
+- Red de baja latencia (InfiniBand, 10Gbps+)
 ```
 
 ## Referencias
