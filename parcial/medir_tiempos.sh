@@ -48,10 +48,19 @@ for np in "${PROCESOS[@]}"; do
         echo "  📊 Tamaño: $elem elem/proc ($total totales)"
         
         for i in $(seq 1 $REPETICIONES); do
-            /usr/bin/time -f "%e %U %S" -o /tmp/time_$$.txt \
-                mpirun -np $np ./avg $elem > /tmp/output_$$.txt 2>&1
+            # Medir tiempo usando el comando time de bash
+            TIME_OUTPUT=$( { time mpirun -np $np ./avg $elem > /tmp/output_$$.txt 2>&1; } 2>&1 )
             
-            read real user sys < /tmp/time_$$.txt
+            # Extraer tiempos real, user y sys
+            real=$(echo "$TIME_OUTPUT" | grep real | awk '{print $2}' | sed 's/0m//;s/s//')
+            user=$(echo "$TIME_OUTPUT" | grep user | awk '{print $2}' | sed 's/0m//;s/s//')
+            sys=$(echo "$TIME_OUTPUT" | grep sys | awk '{print $2}' | sed 's/0m//;s/s//')
+            
+            # Si no se capturó bien, usar valores por defecto
+            [ -z "$real" ] && real="0"
+            [ -z "$user" ] && user="0"
+            [ -z "$sys" ] && sys="0"
+            
             echo "$np,$elem,$total,$real,$user,$sys" >> resultados.csv
             
             echo -n "."
