@@ -45,7 +45,7 @@ for np in "${PROCESOS[@]}"; do
     
     for elem in "${ELEMENTOS[@]}"; do
         total=$((elem * np))
-        echo "Tamaño: $elem elem/proc ($total totales)"
+        echo "  📊 Tamaño: $elem elem/proc ($total totales)"
         
         for i in $(seq 1 $REPETICIONES); do
             /usr/bin/time -f "%e %U %S" -o /tmp/time_$$.txt \
@@ -257,16 +257,17 @@ echo "FASE 5: GENERACIÓN DE GRÁFICOS INTERACTIVOS"
 echo "═══════════════════════════════════════════════════"
 echo ""
 
+# Verificar si plotly está instalado
 if python3 -c "import plotly" 2>/dev/null; then
     echo "Generando gráficos con Plotly..."
     python3 generar_graficos.py
     echo ""
-    echo "Gráficos HTML interactivos generados"
-    echo " Abre los archivos .html en tu navegador"
+    echo "✓ Gráficos HTML interactivos generados"
+    echo "  Abre los archivos .html en tu navegador"
 else
-    echo "Plotly no está instalado"
-    echo "Para generar gráficos, instala: pip3 install plotly"
-    echo "Luego ejecuta: python3 generar_graficos.py"
+    echo "⚠ Plotly no está instalado"
+    echo "  Para generar gráficos, instala: pip3 install plotly"
+    echo "  Luego ejecuta: python3 generar_graficos.py"
 fi
 
 echo ""
@@ -274,12 +275,12 @@ echo "════════════════════════�
 echo "RESUMEN FINAL"
 echo "═══════════════════════════════════════════════════"
 echo ""
-echo "Archivos generados:"
+echo "📁 Archivos generados:"
 echo "   • resultados.csv - Todos los tiempos medidos"
 echo "   • estadisticas.csv - Promedios y estadísticas"
 echo "   • grafico*.html - Gráficos interactivos (si plotly instalado)"
 echo ""
-echo "Gráficos disponibles:"
+echo "📊 Gráficos disponibles:"
 echo "   • grafico1_tiempos.html - Tiempo vs Procesos"
 echo "   • grafico2_speedup.html - Análisis de Speedup"
 echo "   • grafico3_eficiencia.html - Análisis de Eficiencia"
