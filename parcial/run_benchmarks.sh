@@ -56,7 +56,7 @@ ejecutar_prueba() {
         inicio=$(date +%s.%N)
 
         if [ -n "$hostfile" ]; then
-            mpirun --hostfile $hostfile -np $num_procesos ./avg $elementos > /dev/null 2>&1
+            mpirun -np $num_procesos --hostfile $hostfile ./avg $elementos > /dev/null 2>&1
         else
             mpirun -np $num_procesos ./avg $elementos > /dev/null 2>&1
         fi
