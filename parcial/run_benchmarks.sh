@@ -76,6 +76,10 @@ ejecutar_prueba() {
 
         # Calcular tiempo transcurrido
         tiempo=$(echo "$fin - $inicio" | bc)
+        # Asegurar que el tiempo tenga 0 al inicio si es menor a 1
+        if [[ $tiempo == .* ]]; then
+            tiempo="0$tiempo"
+        fi
         tiempos+=($tiempo)
         suma_tiempos=$(echo "$suma_tiempos + $tiempo" | bc)
 
@@ -84,6 +88,9 @@ ejecutar_prueba() {
 
     # Calcular promedio
     promedio=$(echo "scale=6; $suma_tiempos / $NUM_ITERACIONES" | bc)
+    if [[ $promedio == .* ]]; then
+        promedio="0$promedio"
+    fi
 
     # Calcular desviación estándar
     suma_cuadrados=0
@@ -93,6 +100,9 @@ ejecutar_prueba() {
         suma_cuadrados=$(echo "$suma_cuadrados + $cuadrado" | bc)
     done
     desviacion=$(echo "scale=6; sqrt($suma_cuadrados / $NUM_ITERACIONES)" | bc)
+    if [[ $desviacion == .* ]]; then
+        desviacion="0$desviacion"
+    fi
 
     # Guardar resultados
     resultados_promedio[$clave]=$promedio
@@ -114,6 +124,13 @@ ejecutar_prueba() {
             max=$t
         fi
     done
+    # Formatear min y max
+    if [[ $min == .* ]]; then
+        min="0$min"
+    fi
+    if [[ $max == .* ]]; then
+        max="0$max"
+    fi
     echo "    Tiempo mínimo: ${min}s"
     echo "    Tiempo máximo: ${max}s"
     echo ""
