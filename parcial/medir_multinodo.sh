@@ -8,11 +8,11 @@ echo "   ANÁLISIS MPI: 1 NODO vs 2 NODOS"
 echo "======================================================"
 echo ""
 
-# Verificar que existe hostfile
-if [ ! -f "hostfile" ]; then
-    echo "⚠ ERROR: No se encontró 'hostfile'"
+# Verificar que existe lista_nodos
+if [ ! -f "lista_nodos" ]; then
+    echo "⚠ ERROR: No se encontró 'lista_nodos'"
     echo ""
-    echo "Crea un archivo llamado 'hostfile' con el formato:"
+    echo "Crea un archivo llamado 'lista_nodos' con el formato:"
     echo ""
     echo "  ip_vm1 slots=4"
     echo "  ip_vm2 slots=4"
