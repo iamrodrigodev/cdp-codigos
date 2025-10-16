@@ -20,7 +20,7 @@ echo ">>> Compilación exitosa"
 echo ""
 
 # Configuraciones de prueba
-NUM_ITERACIONES=10  # Número de ejecuciones para promediar
+NUM_ITERACIONES=5  # Número de ejecuciones para promediar
 TAMANIOS=(1000 10000 100000 1000000)  # Elementos por proceso
 
 echo ">>> Configuración del benchmark:"
