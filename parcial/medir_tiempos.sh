@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Script completo para medir rendimiento del programa ORIGINAL avg.c
+# Mide: tiempo real, CPU, overhead de comunicación, escalabilidad
+
+echo "======================================================"
+echo "   ANÁLISIS COMPLETO DE RENDIMIENTO MPI"
+echo "======================================================"
+echo ""
+
 # Compilar
 echo "Compilando avg.c..."
 mpicc -o avg avg.c
@@ -32,7 +40,7 @@ echo "════════════════════════�
 
 for np in "${PROCESOS[@]}"; do
     echo ""
-    echo "PROBANDO CON $np PROCESO(S)"
+    echo "▶ PROBANDO CON $np PROCESO(S)"
     echo "───────────────────────────────────────────────────"
     
     for elem in "${ELEMENTOS[@]}"; do
@@ -165,7 +173,7 @@ print("TABLA 3: SPEEDUP Y EFICIENCIA")
 print("="*70)
 
 for elem in sorted(tiempos_base.keys()):
-    print(f"\nTamaño: {elem} elementos por proceso")
+    print(f"\n▶ Tamaño: {elem} elementos por proceso")
     print("-"*70)
     print(f"{'Procesos':<10} {'Tiempo(s)':<12} {'Speedup':<12} {'Eficiencia%':<15} {'Overhead':<10}")
     print("-"*70)
@@ -185,9 +193,9 @@ for elem in sorted(tiempos_base.keys()):
 print("\n" + "="*70)
 print("INTERPRETACIÓN:")
 print("="*70)
-print("Speedup: Cuántas veces más rápido vs 1 proceso")
-print("Eficiencia: Qué tan bien se aprovechan los recursos (ideal=100%)")
-print("Overhead: Tiempo extra perdido en comunicación")
+print("• Speedup: Cuántas veces más rápido vs 1 proceso")
+print("• Eficiencia: Qué tan bien se aprovechan los recursos (ideal=100%)")
+print("• Overhead: Tiempo extra perdido en comunicación")
 EOF
 
 echo ""
@@ -242,3 +250,42 @@ for elem in ['10000', '100000', '1000000']:
         else:
             print(f"→ Con {elem} elem: El overhead se mantiene estable")
 EOF
+
+echo ""
+echo "═══════════════════════════════════════════════════"
+echo "FASE 5: GENERACIÓN DE GRÁFICOS INTERACTIVOS"
+echo "═══════════════════════════════════════════════════"
+echo ""
+
+if python3 -c "import plotly" 2>/dev/null; then
+    echo "Generando gráficos con Plotly..."
+    python3 generar_graficos.py
+    echo ""
+    echo "Gráficos HTML interactivos generados"
+    echo " Abre los archivos .html en tu navegador"
+else
+    echo "Plotly no está instalado"
+    echo "Para generar gráficos, instala: pip3 install plotly"
+    echo "Luego ejecuta: python3 generar_graficos.py"
+fi
+
+echo ""
+echo "═══════════════════════════════════════════════════"
+echo "RESUMEN FINAL"
+echo "═══════════════════════════════════════════════════"
+echo ""
+echo "Archivos generados:"
+echo "   • resultados.csv - Todos los tiempos medidos"
+echo "   • estadisticas.csv - Promedios y estadísticas"
+echo "   • grafico*.html - Gráficos interactivos (si plotly instalado)"
+echo ""
+echo "Gráficos disponibles:"
+echo "   • grafico1_tiempos.html - Tiempo vs Procesos"
+echo "   • grafico2_speedup.html - Análisis de Speedup"
+echo "   • grafico3_eficiencia.html - Análisis de Eficiencia"
+echo "   • grafico4_overhead.html - Overhead de Comunicación"
+echo "   • grafico5_composicion.html - Cómputo vs Comunicación"
+echo "   • grafico6_dashboard.html - Dashboard completo"
+echo ""
+echo "✓ Análisis completado"
+echo ""
