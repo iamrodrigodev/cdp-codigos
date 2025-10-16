@@ -1,0 +1,518 @@
+>>> Configuración del benchmark:
+    - Iteraciones por prueba: 5
+    - Tamaños de entrada: 1000 10000 100000 1000000
+    - Nodos: 2 (server + worker1)
+    - Guardando salida en: resultados_benchmark_20251016_174750.txt
+
+==========================================
+ESCENARIO 1: Una sola máquina (local)
+==========================================
+
+----------------------------------------
+Prueba: 1 máquina, 1 proceso
+Procesos: 1 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.239026379s
+  Ejecución 2/5... 0.238718816s
+  Ejecución 3/5... 0.242757073s
+  Ejecución 4/5... 0.240456424s
+  Ejecución 5/5... 0.238510700s
+
+  RESULTADOS:
+    Tiempo promedio: 0.239893s
+    Desviación estándar: 0.001414s
+    Tiempo mínimo: 0.238510700s
+    Tiempo máximo: 0.242757073s
+
+----------------------------------------
+Prueba: 1 máquina, 2 procesos
+Procesos: 2 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.244825197s
+  Ejecución 2/5... 0.242207437s
+  Ejecución 3/5... 0.241273686s
+  Ejecución 4/5... 0.262445366s
+  Ejecución 5/5... 0.256998393s
+
+  RESULTADOS:
+    Tiempo promedio: 0.249550s
+    Desviación estándar: 0.008544s
+    Tiempo mínimo: 0.241273686s
+    Tiempo máximo: 0.262445366s
+
+----------------------------------------
+Prueba: 1 máquina, 4 procesos
+Procesos: 4 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.267375279s
+  Ejecución 2/5... 0.247322514s
+  Ejecución 3/5... 0.238492384s
+  Ejecución 4/5... 0.251705867s
+  Ejecución 5/5... 0.277738424s
+
+  RESULTADOS:
+    Tiempo promedio: 0.256526s
+    Desviación estándar: 0.014142s
+    Tiempo mínimo: 0.238492384s
+    Tiempo máximo: 0.277738424s
+
+----------------------------------------
+Prueba: 1 máquina, 1 proceso
+Procesos: 1 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 0.248426429s
+  Ejecución 2/5... 0.264681993s
+  Ejecución 3/5... 0.243902131s
+  Ejecución 4/5... 0.238503813s
+  Ejecución 5/5... 0.241387436s
+
+  RESULTADOS:
+    Tiempo promedio: 0.247380s
+    Desviación estándar: 0.009219s
+    Tiempo mínimo: 0.238503813s
+    Tiempo máximo: 0.264681993s
+
+----------------------------------------
+Prueba: 1 máquina, 2 procesos
+Procesos: 2 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 0.236562711s
+  Ejecución 2/5... 0.246609386s
+  Ejecución 3/5... 0.244818417s
+  Ejecución 4/5... 0.242714293s
+  Ejecución 5/5... 0.256431573s
+
+  RESULTADOS:
+    Tiempo promedio: 0.245427s
+    Desviación estándar: 0.006403s
+    Tiempo mínimo: 0.236562711s
+    Tiempo máximo: 0.256431573s
+
+----------------------------------------
+Prueba: 1 máquina, 4 procesos
+Procesos: 4 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 0.244920611s
+  Ejecución 2/5... 0.241827720s
+  Ejecución 3/5... 0.263044798s
+  Ejecución 4/5... 1.459092414s
+  Ejecución 5/5... 0.258543255s
+
+  RESULTADOS:
+    Tiempo promedio: 0.493485s
+    Desviación estándar: 0.482868s
+    Tiempo mínimo: 0.241827720s
+    Tiempo máximo: 1.459092414s
+
+----------------------------------------
+Prueba: 1 máquina, 1 proceso
+Procesos: 1 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 0.243004580s
+  Ejecución 2/5... 0.240753279s
+  Ejecución 3/5... 0.250917806s
+  Ejecución 4/5... 0.242395296s
+  Ejecución 5/5... 0.246541198s
+
+  RESULTADOS:
+    Tiempo promedio: 0.244722s
+    Desviación estándar: 0.003605s
+    Tiempo mínimo: 0.240753279s
+    Tiempo máximo: 0.250917806s
+
+----------------------------------------
+Prueba: 1 máquina, 2 procesos
+Procesos: 2 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 0.243170798s
+  Ejecución 2/5... 0.252822536s
+  Ejecución 3/5... 0.239622432s
+  Ejecución 4/5... 0.245539666s
+  Ejecución 5/5... 0.265327210s
+
+  RESULTADOS:
+    Tiempo promedio: 0.249296s
+    Desviación estándar: 0.009055s
+    Tiempo mínimo: 0.239622432s
+    Tiempo máximo: 0.265327210s
+
+----------------------------------------
+Prueba: 1 máquina, 4 procesos
+Procesos: 4 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 0.253225001s
+  Ejecución 2/5... 0.254361212s
+  Ejecución 3/5... 0.276166805s
+  Ejecución 4/5... 0.266708711s
+  Ejecución 5/5... 0.253305471s
+
+  RESULTADOS:
+    Tiempo promedio: 0.260753s
+    Desviación estándar: 0.009219s
+    Tiempo mínimo: 0.253225001s
+    Tiempo máximo: 0.276166805s
+
+----------------------------------------
+Prueba: 1 máquina, 1 proceso
+Procesos: 1 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 0.252830035s
+  Ejecución 2/5... 0.258707720s
+  Ejecución 3/5... 0.254160442s
+  Ejecución 4/5... 0.254508909s
+  Ejecución 5/5... 0.254186112s
+
+  RESULTADOS:
+    Tiempo promedio: 0.254878s
+    Desviación estándar: 0.001732s
+    Tiempo mínimo: 0.252830035s
+    Tiempo máximo: 0.258707720s
+
+----------------------------------------
+Prueba: 1 máquina, 2 procesos
+Procesos: 2 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 0.258502712s
+  Ejecución 2/5... 0.269061981s
+  Ejecución 3/5... 0.259941268s
+  Ejecución 4/5... 0.260944029s
+  Ejecución 5/5... 0.262153218s
+
+  RESULTADOS:
+    Tiempo promedio: 0.262120s
+    Desviación estándar: 0.003605s
+    Tiempo mínimo: 0.258502712s
+    Tiempo máximo: 0.269061981s
+
+----------------------------------------
+Prueba: 1 máquina, 4 procesos
+Procesos: 4 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 0.292592895s
+  Ejecución 2/5... 0.294014233s
+  Ejecución 3/5... 43.032371005s
+  Ejecución 4/5... 0.290229478s
+  Ejecución 5/5... 0.301299943s
+
+  RESULTADOS:
+    Tiempo promedio: 8.842101s
+    Desviación estándar: 17.095135s
+    Tiempo mínimo: 0.290229478s
+    Tiempo máximo: 43.032371005s
+
+==========================================
+ESCENARIO 2: Múltiples máquinas (2 nodos)
+==========================================
+
+----------------------------------------
+Prueba: 2 máquinas, 2 procesos (1 por nodo)
+Procesos: 2 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.624142875s
+  Ejecución 2/5... 0.509941591s
+  Ejecución 3/5... 0.458138007s
+  Ejecución 4/5... 0.501502960s
+  Ejecución 5/5... 0.542380352s
+
+  RESULTADOS:
+    Tiempo promedio: 0.527221s
+    Desviación estándar: 0.055416s
+    Tiempo mínimo: 0.458138007s
+    Tiempo máximo: 0.624142875s
+
+----------------------------------------
+Prueba: 2 máquinas, 4 procesos (2 por nodo)
+Procesos: 4 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 0.469062484s
+  Ejecución 2/5... 0.466048557s
+  Ejecución 3/5... 0.506052643s
+  Ejecución 4/5... 0.552394443s
+  Ejecución 5/5... 0.504102526s
+
+  RESULTADOS:
+    Tiempo promedio: 0.499532s
+    Desviación estándar: 0.031320s
+    Tiempo mínimo: 0.466048557s
+    Tiempo máximo: 0.552394443s
+
+----------------------------------------
+Prueba: 2 máquinas, 8 procesos (4 por nodo)
+Procesos: 8 | Elementos/proceso: 1000
+----------------------------------------
+  Ejecución 1/5... 2.844670002s
+  Ejecución 2/5... 2.999088823s
+  Ejecución 3/5... 2.833932582s
+  Ejecución 4/5... 2.162685360s
+  Ejecución 5/5... 2.114942273s
+
+  RESULTADOS:
+    Tiempo promedio: 2.591063s
+    Desviación estándar: 0.374161s
+    Tiempo mínimo: 2.114942273s
+    Tiempo máximo: 2.999088823s
+
+----------------------------------------
+Prueba: 2 máquinas, 2 procesos (1 por nodo)
+Procesos: 2 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 0.567333598s
+  Ejecución 2/5... 0.498468679s
+  Ejecución 3/5... 0.465870254s
+  Ejecución 4/5... 0.481095864s
+  Ejecución 5/5... 0.463863410s
+
+  RESULTADOS:
+    Tiempo promedio: 0.495326s
+    Desviación estándar: 0.038091s
+    Tiempo mínimo: 0.463863410s
+    Tiempo máximo: 0.567333598s
+
+----------------------------------------
+Prueba: 2 máquinas, 4 procesos (2 por nodo)
+Procesos: 4 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 0.510876226s
+  Ejecución 2/5... 0.472154791s
+  Ejecución 3/5... 0.577891463s
+  Ejecución 4/5... 0.474718466s
+  Ejecución 5/5... 0.495718676s
+
+  RESULTADOS:
+    Tiempo promedio: 0.506271s
+    Desviación estándar: 0.038522s
+    Tiempo mínimo: 0.472154791s
+    Tiempo máximo: 0.577891463s
+
+----------------------------------------
+Prueba: 2 máquinas, 8 procesos (4 por nodo)
+Procesos: 8 | Elementos/proceso: 10000
+----------------------------------------
+  Ejecución 1/5... 2.583416013s
+  Ejecución 2/5... 3.110317292s
+  Ejecución 3/5... 14.925552643s
+  Ejecución 4/5... 75.166741459s
+  Ejecución 5/5... 1.819268583s
+
+  RESULTADOS:
+    Tiempo promedio: 19.521059s
+    Desviación estándar: 28.238662s
+    Tiempo mínimo: 1.819268583s
+    Tiempo máximo: 75.166741459s
+
+----------------------------------------
+Prueba: 2 máquinas, 2 procesos (1 por nodo)
+Procesos: 2 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 0.477111207s
+  Ejecución 2/5... 0.480716232s
+  Ejecución 3/5... 0.474794630s
+  Ejecución 4/5... 0.461567696s
+  Ejecución 5/5... 0.499829479s
+
+  RESULTADOS:
+    Tiempo promedio: 0.478803s
+    Desviación estándar: 0.012328s
+    Tiempo mínimo: 0.461567696s
+    Tiempo máximo: 0.499829479s
+
+----------------------------------------
+Prueba: 2 máquinas, 4 procesos (2 por nodo)
+Procesos: 4 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 0.537237520s
+  Ejecución 2/5... 0.490567948s
+  Ejecución 3/5... 0.534494038s
+  Ejecución 4/5... 0.487118471s
+  Ejecución 5/5... 0.493702058s
+
+  RESULTADOS:
+    Tiempo promedio: 0.508624s
+    Desviación estándar: 0.022338s
+    Tiempo mínimo: 0.487118471s
+    Tiempo máximo: 0.537237520s
+
+----------------------------------------
+Prueba: 2 máquinas, 8 procesos (4 por nodo)
+Procesos: 8 | Elementos/proceso: 100000
+----------------------------------------
+  Ejecución 1/5... 1.797863858s
+  Ejecución 2/5... 97.658692968s
+  Ejecución 3/5... 1.389439158s
+  Ejecución 4/5... 3.653094042s
+  Ejecución 5/5... 2.297269337s
+
+  RESULTADOS:
+    Tiempo promedio: 21.359271s
+    Desviación estándar: 38.157340s
+    Tiempo mínimo: 1.389439158s
+    Tiempo máximo: 97.658692968s
+
+----------------------------------------
+Prueba: 2 máquinas, 2 procesos (1 por nodo)
+Procesos: 2 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 0.615708029s
+  Ejecución 2/5... 0.502606023s
+  Ejecución 3/5... 0.490515348s
+  Ejecución 4/5... 0.473580746s
+  Ejecución 5/5... 0.529100894s
+
+  RESULTADOS:
+    Tiempo promedio: 0.522302s
+    Desviación estándar: 0.050079s
+    Tiempo mínimo: 0.473580746s
+    Tiempo máximo: 0.615708029s
+
+----------------------------------------
+Prueba: 2 máquinas, 4 procesos (2 por nodo)
+Procesos: 4 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 0.535951113s
+  Ejecución 2/5... 2.240819193s
+  Ejecución 3/5... 0.514813866s
+  Ejecución 4/5... 0.765428184s
+  Ejecución 5/5... 0.600543594s
+
+  RESULTADOS:
+    Tiempo promedio: 0.931511s
+    Desviación estándar: 0.660531s
+    Tiempo mínimo: 0.514813866s
+    Tiempo máximo: 2.240819193s
+
+----------------------------------------
+Prueba: 2 máquinas, 8 procesos (4 por nodo)
+Procesos: 8 | Elementos/proceso: 1000000
+----------------------------------------
+  Ejecución 1/5... 1.114141447s
+  Ejecución 2/5... 1.569308729s
+  Ejecución 3/5... 1.114018903s
+  Ejecución 4/5... 1.035382472s
+  Ejecución 5/5... 2.144305853s
+
+  RESULTADOS:
+    Tiempo promedio: 1.395431s
+    Desviación estándar: 0.419283s
+    Tiempo mínimo: 1.035382472s
+    Tiempo máximo: 2.144305853s
+
+==========================================
+ANÁLISIS COMPARATIVO DE RESULTADOS
+==========================================
+
+==========================================
+TAMAÑO: 1000 elementos por proceso
+==========================================
+
+--- ESCALABILIDAD LOCAL ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+1 proceso                     0.239893      1.000     100.00%
+2 procesos                    0.249550      0.961      48.05%
+4 procesos                    0.256526      0.935      23.37%
+
+--- ESCALABILIDAD DISTRIBUIDA (2 nodos) ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+2 proc (1 por nodo)           0.527221      0.455      22.75%
+4 proc (2 por nodo)           0.499532      0.480      12.00%
+8 proc (4 por nodo)           2.591063      0.092       1.15%
+
+--- OVERHEAD DE COMUNICACIÓN (LOCAL vs DISTRIBUIDO) ---
+Procesos    T_Local(s)  T_Distrib(s)  Overhead(s)  Overhead(%)
+----------------------------------------------------------------
+2             0.249550      0.527221     0.277671      111.26%
+4             0.256526      0.499532     0.243006       94.72%
+
+==========================================
+TAMAÑO: 10000 elementos por proceso
+==========================================
+
+--- ESCALABILIDAD LOCAL ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+1 proceso                     0.247380      1.000     100.00%
+2 procesos                    0.245427      1.007      50.35%
+4 procesos                    0.493485      0.501      12.52%
+
+--- ESCALABILIDAD DISTRIBUIDA (2 nodos) ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+2 proc (1 por nodo)           0.495326      0.499      24.95%
+4 proc (2 por nodo)           0.506271      0.488      12.20%
+8 proc (4 por nodo)          19.521059      0.012       0.15%
+
+--- OVERHEAD DE COMUNICACIÓN (LOCAL vs DISTRIBUIDO) ---
+Procesos    T_Local(s)  T_Distrib(s)  Overhead(s)  Overhead(%)
+----------------------------------------------------------------
+2             0.245427      0.495326     0.249899      101.82%
+4             0.493485      0.506271     0.012786        2.59%
+
+==========================================
+TAMAÑO: 100000 elementos por proceso
+==========================================
+
+--- ESCALABILIDAD LOCAL ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+1 proceso                     0.244722      1.000     100.00%
+2 procesos                    0.249296      0.981      49.05%
+4 procesos                    0.260753      0.938      23.45%
+
+--- ESCALABILIDAD DISTRIBUIDA (2 nodos) ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+2 proc (1 por nodo)           0.478803      0.511      25.55%
+4 proc (2 por nodo)           0.508624      0.481      12.02%
+8 proc (4 por nodo)          21.359271      0.011       0.13%
+
+--- OVERHEAD DE COMUNICACIÓN (LOCAL vs DISTRIBUIDO) ---
+Procesos    T_Local(s)  T_Distrib(s)  Overhead(s)  Overhead(%)
+----------------------------------------------------------------
+2             0.249296      0.478803     0.229507       92.06%
+4             0.260753      0.508624     0.247871       95.05%
+
+==========================================
+TAMAÑO: 1000000 elementos por proceso
+==========================================
+
+--- ESCALABILIDAD LOCAL ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+1 proceso                     0.254878      1.000     100.00%
+2 procesos                    0.262120      0.972      48.60%
+4 procesos                    8.842101      0.028       0.70%
+
+--- ESCALABILIDAD DISTRIBUIDA (2 nodos) ---
+Configuración                 Tiempo(s)    Speedup    Eficiencia
+----------------------------------------------------------------
+2 proc (1 por nodo)           0.522302      0.487      24.35%
+4 proc (2 por nodo)           0.931511      0.273       6.82%
+8 proc (4 por nodo)           1.395431      0.182       2.27%
+
+--- OVERHEAD DE COMUNICACIÓN (LOCAL vs DISTRIBUIDO) ---
+Procesos    T_Local(s)  T_Distrib(s)  Overhead(s)  Overhead(%)
+----------------------------------------------------------------
+2             0.262120      0.522302     0.260182       99.26%
+4             8.842101      0.931511    -7.910590      -89.46%
+
+==========================================
+RESUMEN DE OBSERVACIONES
+==========================================
+
+MÉTRICAS CALCULADAS:
+  - Speedup = T(1 proceso) / T(N procesos)
+  - Eficiencia = Speedup / N procesos * 100%
+  - Overhead comunicación = T_distribuido - T_local
+
+INTERPRETACIÓN:
+  - Speedup ideal = N (lineal con número de procesos)
+  - Eficiencia ideal = 100%
+  - Overhead positivo = comunicación de red ralentiza
+  - Overhead negativo = posible beneficio de distribución
+
+==========================================
+Benchmark completado
+==========================================
+
+>>> Resultados guardados en: resultados_benchmark_20251016_174750.txt
