@@ -27,10 +27,17 @@ echo ""
 NUM_ITERACIONES=5  # Número de ejecuciones para promediar
 TAMANIOS=(1000 10000 100000 1000000)  # Elementos por proceso
 
+# Archivo de salida
+OUTPUT_FILE="resultados_benchmark_$(date +%Y%m%d_%H%M%S).txt"
+
+# Redirigir toda la salida a archivo Y pantalla usando exec
+exec > >(tee "$OUTPUT_FILE") 2>&1
+
 echo ">>> Configuración del benchmark:"
 echo "    - Iteraciones por prueba: $NUM_ITERACIONES"
 echo "    - Tamaños de entrada: ${TAMANIOS[@]}"
 echo "    - Nodos: 2 (server + worker1)"
+echo "    - Guardando salida en: $OUTPUT_FILE"
 echo ""
 
 # Arrays para almacenar resultados
@@ -265,3 +272,5 @@ echo ""
 echo "=========================================="
 echo "Benchmark completado"
 echo "=========================================="
+echo ""
+echo ">>> Resultados guardados en: $OUTPUT_FILE"

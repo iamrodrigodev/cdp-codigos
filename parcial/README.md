@@ -94,6 +94,14 @@ chmod +x run_benchmarks.sh
 ./run_benchmarks.sh
 ```
 
+**Nota importante:** Todo lo que se imprime en pantalla durante la ejecución del benchmark se guarda automáticamente en un archivo de texto llamado `resultados_benchmark_YYYYMMDD_HHMMSS.txt`. Esto incluye:
+- Cada iteración de cada prueba
+- Todos los tiempos medidos
+- Tablas de análisis comparativo
+- Speedup, eficiencia y overhead
+
+El archivo se crea en el mismo directorio donde ejecutas el script.
+
 ### Ejecución manual paso a paso
 
 Si prefieres ejecutar manualmente:
