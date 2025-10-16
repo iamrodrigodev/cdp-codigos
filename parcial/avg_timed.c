@@ -10,8 +10,7 @@
 float *create_rand_nums(int num_elements) {
   float *rand_nums = (float *)malloc(sizeof(float) * num_elements);
   assert(rand_nums != NULL);
-  int i;
-  for (i = 0; i < num_elements; i++) {
+  for (int i = 0; i < num_elements; i++) {
     rand_nums[i] = (rand() / (float)RAND_MAX);
   }
   return rand_nums;
@@ -19,8 +18,7 @@ float *create_rand_nums(int num_elements) {
 
 float compute_avg(float *array, int num_elements) {
   float sum = 0.f;
-  int i;
-  for (i = 0; i < num_elements; i++) {
+  for (int i = 0; i < num_elements; i++) {
     sum += array[i];
   }
   return sum / num_elements;
@@ -28,7 +26,7 @@ float compute_avg(float *array, int num_elements) {
 
 int main(int argc, char** argv) {
   if (argc != 2) {
-    fprintf(stderr, "Uso: avg_timed num_elements_per_proc\n");
+    fprintf(stderr, "Uso: %s <elementos_por_proceso>\n", argv[0]);
     exit(1);
   }
 
@@ -37,21 +35,19 @@ int main(int argc, char** argv) {
 
   MPI_Init(NULL, NULL);
 
-  int world_rank;
+  int world_rank, world_size;
   MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  int world_size;
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-  // Variables para medición de tiempo
-  double start_total, end_total;
-  double start_comm1, end_comm1, time_scatter;
-  double start_comp, end_comp, time_computation;
-  double start_comm2, end_comm2, time_gather;
+  // VARIABLES DE TIEMPO
+  double t_total_start, t_total_end;
+  double t_scatter_start, t_scatter_end;
+  double t_compute_start, t_compute_end;
+  double t_gather_start, t_gather_end;
   
-  // Inicio del tiempo total
-  start_total = MPI_Wtime();
+  t_total_start = MPI_Wtime();
 
-  // Crear datos aleatorios en el proceso raíz
+  // Crear datos en proceso 0
   float *rand_nums = NULL;
   if (world_rank == 0) {
     rand_nums = create_rand_nums(num_elements_per_proc * world_size);
@@ -60,68 +56,64 @@ int main(int argc, char** argv) {
   float *sub_rand_nums = (float *)malloc(sizeof(float) * num_elements_per_proc);
   assert(sub_rand_nums != NULL);
 
-  // ====== MEDICIÓN: Tiempo de Scatter (Comunicación 1) ======
-  start_comm1 = MPI_Wtime();
-  MPI_Scatter(rand_nums, num_elements_per_proc, MPI_FLOAT, sub_rand_nums,
-              num_elements_per_proc, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  end_comm1 = MPI_Wtime();
-  time_scatter = end_comm1 - start_comm1;
+  // === SCATTER (COMUNICACIÓN) ===
+  t_scatter_start = MPI_Wtime();
+  MPI_Scatter(rand_nums, num_elements_per_proc, MPI_FLOAT, 
+              sub_rand_nums, num_elements_per_proc, MPI_FLOAT, 
+              0, MPI_COMM_WORLD);
+  t_scatter_end = MPI_Wtime();
 
-  // ====== MEDICIÓN: Tiempo de Cómputo ======
-  start_comp = MPI_Wtime();
+  // === CÓMPUTO (PROCESAMIENTO) ===
+  t_compute_start = MPI_Wtime();
   float sub_avg = compute_avg(sub_rand_nums, num_elements_per_proc);
-  end_comp = MPI_Wtime();
-  time_computation = end_comp - start_comp;
+  t_compute_end = MPI_Wtime();
 
-  // ====== MEDICIÓN: Tiempo de Gather (Comunicación 2) ======
+  // === GATHER (COMUNICACIÓN) ===
   float *sub_avgs = NULL;
   if (world_rank == 0) {
     sub_avgs = (float *)malloc(sizeof(float) * world_size);
     assert(sub_avgs != NULL);
   }
   
-  start_comm2 = MPI_Wtime();
-  MPI_Gather(&sub_avg, 1, MPI_FLOAT, sub_avgs, 1, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  end_comm2 = MPI_Wtime();
-  time_gather = end_comm2 - start_comm2;
+  t_gather_start = MPI_Wtime();
+  MPI_Gather(&sub_avg, 1, MPI_FLOAT, sub_avgs, 1, MPI_FLOAT, 
+             0, MPI_COMM_WORLD);
+  t_gather_end = MPI_Wtime();
 
-  // Cálculo final y fin del tiempo total
+  t_total_end = MPI_Wtime();
+
+  // RESULTADOS (solo proceso 0)
   if (world_rank == 0) {
     float avg = compute_avg(sub_avgs, world_size);
-    end_total = MPI_Wtime();
     
-    // Resultados
-    printf("==== RESULTADOS DEL CÁLCULO ====\n");
-    printf("Promedio calculado: %f\n", avg);
+    double t_scatter = t_scatter_end - t_scatter_start;
+    double t_compute = t_compute_end - t_compute_start;
+    double t_gather = t_gather_end - t_gather_start;
+    double t_total = t_total_end - t_total_start;
+    double t_comm = t_scatter + t_gather;
     
-    float original_data_avg = compute_avg(rand_nums, num_elements_per_proc * world_size);
-    printf("Promedio verificación: %f\n\n", original_data_avg);
+    printf("\n========== RESULTADOS ==========\n");
+    printf("Procesos: %d\n", world_size);
+    printf("Elementos/proceso: %d\n", num_elements_per_proc);
+    printf("Total elementos: %d\n", num_elements_per_proc * world_size);
+    printf("Promedio: %.6f\n", avg);
     
-    // Tiempos
-    printf("==== MEDICIÓN DE TIEMPOS ====\n");
-    printf("Procesos MPI: %d\n", world_size);
-    printf("Elementos por proceso: %d\n", num_elements_per_proc);
-    printf("Elementos totales: %d\n\n", num_elements_per_proc * world_size);
+    printf("\n========== TIEMPOS ==========\n");
+    printf("T_Scatter:   %.6f seg\n", t_scatter);
+    printf("T_Compute:   %.6f seg\n", t_compute);
+    printf("T_Gather:    %.6f seg\n", t_gather);
+    printf("T_Comunicación: %.6f seg (%.2f%%)\n", 
+           t_comm, (t_comm/t_total)*100);
+    printf("T_Total:     %.6f seg\n", t_total);
+    printf("\n");
     
-    printf("Tiempo Scatter (comunicación): %.6f segundos\n", time_scatter);
-    printf("Tiempo Cómputo (procesamiento): %.6f segundos\n", time_computation);
-    printf("Tiempo Gather (comunicación): %.6f segundos\n", time_gather);
-    printf("Tiempo Total Comunicación: %.6f segundos\n", time_scatter + time_gather);
-    printf("Tiempo Total: %.6f segundos\n\n", end_total - start_total);
-    
-    printf("Porcentaje Comunicación: %.2f%%\n", 
-           ((time_scatter + time_gather) / (end_total - start_total)) * 100);
-    printf("Porcentaje Procesamiento: %.2f%%\n", 
-           (time_computation / (end_total - start_total)) * 100);
-    
-    // Salida CSV para análisis posterior
-    FILE *fp = fopen("resultados_tiempos.csv", "a");
-    if (fp != NULL) {
-      fprintf(fp, "%d,%d,%d,%.6f,%.6f,%.6f,%.6f\n",
+    // Guardar en CSV
+    FILE *fp = fopen("tiempos.csv", "a");
+    if (fp) {
+      fprintf(fp, "%d,%d,%d,%.6f,%.6f,%.6f,%.6f,%.6f\n",
               world_size, num_elements_per_proc, 
               num_elements_per_proc * world_size,
-              time_scatter, time_computation, time_gather,
-              end_total - start_total);
+              t_scatter, t_compute, t_gather, t_comm, t_total);
       fclose(fp);
     }
   }
